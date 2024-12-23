@@ -1,0 +1,105 @@
+//STUDENT GRADE TRACKER
+package Topcodes;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class COTECHTASK1 {
+
+    // Function to calculate the average grade
+    public static double calculateAverage(ArrayList<Double> grades) {
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        return grades.isEmpty() ? 0 : sum / grades.size();
+    }
+
+    // Function to determine the letter grade
+    public static String getLetterGrade(double average) {
+        if (average >= 90) {
+            return "A";
+        } else if (average >= 80) {
+            return "B";
+        } else if (average >= 70) {
+            return "C";
+        } else if (average >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    // Function to calculate GPA from average grade
+    public static double calculateGPA(double average) {
+        if (average >= 90) {
+            return 4.0;
+        } else if (average >= 80) {
+            return 3.0;
+        } else if (average >= 70) {
+            return 2.0;
+        } else if (average >= 60) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Double> grades = new ArrayList<>();
+
+        System.out.println("Welcome to the Student Grades Manager!");
+
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add a grade");
+            System.out.println("2. Calculate average grade");
+            System.out.println("3. Display overall grade information");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the grade (0-100): ");
+                    double grade = scanner.nextDouble();
+                    if (grade >= 0 && grade <= 100) {
+                        grades.add(grade);
+                        System.out.println("Grade added successfully.");
+                    } else {
+                        System.out.println("Invalid grade. Please enter a value between 0 and 100.");
+                    }
+                    break;
+
+                case 2:
+                    double average = calculateAverage(grades);
+                    System.out.printf("The average grade is: %.2f\n", average);
+                    break;
+
+                case 3:
+                    if (grades.isEmpty()) {
+                        System.out.println("No grades available to display information.");
+                    } else {
+                        double avg = calculateAverage(grades);
+                        String letterGrade = getLetterGrade(avg);
+                        double gpa = calculateGPA(avg);
+
+                        System.out.printf("\nOverall Grade Information:\n");
+                        System.out.printf("Average Grade: %.2f\n", avg);
+                        System.out.printf("Letter Grade: %s\n", letterGrade);
+                        System.out.printf("GPA: %.2f\n", gpa);
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option. Please choose again.");
+            }
+        }
+    }
+}
